@@ -6,7 +6,6 @@ pub use self::unix::{
     Io,
     Selector,
     pipe,
-    set_nonblock,
 };
 
 #[cfg(all(unix, not(target_os = "fuchsia")))]

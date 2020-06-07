@@ -56,10 +56,6 @@ impl Selector {
         })
     }
 
-    pub fn id(&self) -> usize {
-        self.id
-    }
-
     /// Wait for events from the OS
     pub fn select(&self, evts: &mut Events, awakener: Token, timeout: Option<Duration>) -> io::Result<bool> {
         let timeout_ms = timeout

@@ -36,7 +36,7 @@ mod ready;
 
 pub use self::awakener::Awakener;
 pub use self::eventedfd::EventedFd;
-pub use self::io::{Io, set_nonblock};
+pub use self::io::{Io };
 pub use self::ready::{UnixReady, READY_ALL};
 
 

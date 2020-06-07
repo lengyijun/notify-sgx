@@ -2749,22 +2749,8 @@ fn is_send<T: Send>() {}
 fn is_sync<T: Sync>() {}
 
 impl SelectorId {
-    pub fn new() -> SelectorId {
-        SelectorId {
-            id: AtomicUsize::new(0),
-        }
-    }
 
-    pub fn associate_selector(&self, poll: &Poll) -> io::Result<()> {
-        let selector_id = self.id.load(Ordering::SeqCst);
 
-        if selector_id != 0 && selector_id != poll.selector.id() {
-            Err(io::Error::new(io::ErrorKind::Other, "socket already registered"))
-        } else {
-            self.id.store(poll.selector.id(), Ordering::SeqCst);
-            Ok(())
-        }
-    }
 }
 
 impl Clone for SelectorId {

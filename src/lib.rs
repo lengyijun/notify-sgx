@@ -117,7 +117,6 @@ use std::time::Duration;
 pub use self::fsevent::FsEventWatcher;
 #[cfg(target_os = "linux")]
 pub use self::inotify::INotifyWatcher;
-pub use self::null::NullWatcher;
 #[cfg(target_os = "windows")]
 pub use self::windows::ReadDirectoryChangesWatcher;
 
@@ -128,8 +127,6 @@ pub mod inotify;
 #[cfg(target_os = "windows")]
 pub mod windows;
 
-pub mod null;
-pub mod poll;
 
 mod debounce;
 

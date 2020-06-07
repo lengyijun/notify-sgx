@@ -9,13 +9,6 @@ use event::Evented;
 use unix::EventedFd;
 use sys::unix::cvt;
 
-pub fn set_nonblock(fd: libc::c_int) -> io::Result<()> {
-    unsafe {
-        let flags = libc::fcntl(fd, libc::F_GETFL);
-        cvt(libc::fcntl(fd, libc::F_SETFL, flags | libc::O_NONBLOCK)).map(|_|())
-    }
-}
-
 pub fn set_cloexec(fd: libc::c_int) -> io::Result<()> {
     unsafe {
         let flags = libc::fcntl(fd, libc::F_GETFD);
