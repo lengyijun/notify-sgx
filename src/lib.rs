@@ -118,7 +118,6 @@ pub use self::fsevent::FsEventWatcher;
 #[cfg(target_os = "linux")]
 pub use self::inotify::INotifyWatcher;
 pub use self::null::NullWatcher;
-pub use self::poll::PollWatcher;
 #[cfg(target_os = "windows")]
 pub use self::windows::ReadDirectoryChangesWatcher;
 
