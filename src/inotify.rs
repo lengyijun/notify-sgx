@@ -4,8 +4,8 @@
 //! monitor individual files, or to monitor directories.  When a directory is monitored, inotify
 //! will return events for the directory itself, and for files inside the directory.
 
+use std::prelude::v1::*;
 extern crate inotify as inotify_sys;
-extern crate libc;
 extern crate walkdir;
 
 use self::inotify_sys::{EventMask, Inotify, WatchDescriptor, WatchMask};
@@ -22,7 +22,7 @@ use std::mem;
 use std::os::unix::io::AsRawFd;
 use std::path::{Path, PathBuf};
 use std::sync::mpsc::{self, Sender};
-use std::sync::Mutex;
+use std::sync::SgxMutex as Mutex;
 use std::thread;
 use std::time::Duration;
 

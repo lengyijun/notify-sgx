@@ -1,4 +1,6 @@
 // Re-export the io::Result / Error types for convenience
+
+use std::prelude::v1::*;
 pub use std::io::{Read, Write, Result, Error, ErrorKind};
 
 // TODO: Delete this

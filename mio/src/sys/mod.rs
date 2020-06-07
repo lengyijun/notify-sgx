@@ -1,3 +1,6 @@
+
+use std::prelude::v1::*;
+
 #[cfg(all(unix, not(target_os = "fuchsia")))]
 pub use self::unix::{
     Awakener,

@@ -1,5 +1,8 @@
 //! Extra components for use with Mio.
 #![deny(missing_docs)]
+#![no_std]
+extern crate sgx_tstd as std;
+
 extern crate lazycell;
 extern crate mio;
 extern crate slab;
@@ -8,7 +11,6 @@ extern crate slab;
 extern crate log;
 
 pub mod channel;
-pub mod timer;
 
 // Conversion utilities
 mod convert {

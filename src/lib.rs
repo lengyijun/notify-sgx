@@ -90,12 +90,16 @@
 
 #![deny(missing_docs)]
 
+#![no_std]
+use std::prelude::v1::*;
+extern crate sgx_tstd as std;
+extern crate sgx_libc as libc;
+
 #[macro_use]
 extern crate bitflags;
 extern crate filetime;
 #[cfg(target_os = "macos")]
 extern crate fsevent_sys;
-extern crate libc;
 #[cfg(target_os = "linux")]
 extern crate mio;
 #[cfg(target_os = "linux")]

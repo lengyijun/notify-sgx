@@ -1,6 +1,8 @@
 //! Thread safe communication channel implementing `Evented`
+use std::prelude::v1::*;
 use lazycell::{AtomicLazyCell, LazyCell};
-use mio::{Evented, Poll, PollOpt, Ready, Registration, SetReadiness, Token};
+use mio::{ Poll, PollOpt, Ready, Registration, SetReadiness, Token};
+use mio::event::Evented;
 use std::any::Any;
 use std::error;
 use std::sync::atomic::{AtomicUsize, Ordering};
@@ -370,24 +372,9 @@ impl<T> From<io::Error> for TrySendError<T> {
  *
  */
 
-impl<T: Any> error::Error for SendError<T> {
-    fn description(&self) -> &str {
-        match *self {
-            SendError::Io(ref io_err) => io_err.description(),
-            SendError::Disconnected(..) => "Disconnected",
-        }
-    }
-}
+impl<T: Any> error::Error for SendError<T> {}
 
-impl<T: Any> error::Error for TrySendError<T> {
-    fn description(&self) -> &str {
-        match *self {
-            TrySendError::Io(ref io_err) => io_err.description(),
-            TrySendError::Full(..) => "Full",
-            TrySendError::Disconnected(..) => "Disconnected",
-        }
-    }
-}
+impl<T: Any> error::Error for TrySendError<T> {}
 
 impl<T> fmt::Debug for SendError<T> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

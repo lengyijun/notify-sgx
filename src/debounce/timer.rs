@@ -1,3 +1,5 @@
+
+use std::prelude::v1::*;
 use super::super::{op, DebouncedEvent};
 
 use std::collections::VecDeque;
@@ -6,7 +8,7 @@ use std::path::PathBuf;
 use std::sync::mpsc;
 use std::sync::{
     atomic::{self, AtomicBool},
-    Arc, Condvar, Mutex,
+    Arc, SgxCondvar as Condvar, SgxMutex as Mutex,
 };
 use std::thread;
 use std::time::{Duration, Instant};

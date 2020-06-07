@@ -1,3 +1,5 @@
+
+use std::prelude::v1::*;
 use libc::{self, c_int};
 
 // #[macro_use]
@@ -49,15 +51,15 @@ pub fn pipe() -> ::io::Result<(Io, Io)> {
 
     let mut pipes = [0; 2];
     unsafe {
-                cvt(libc::pipe(pipes.as_mut_ptr()))?;
+                cvt(libc::ocall::pipe(pipes.as_mut_ptr()))?;
                 // Ensure the pipe are closed if any of the system calls below
                 // fail.
                 let r = Io::from_raw_fd(pipes[0]);
                 let w = Io::from_raw_fd(pipes[1]);
-                cvt(libc::fcntl(pipes[0], libc::F_SETFD, libc::FD_CLOEXEC))?;
-                cvt(libc::fcntl(pipes[1], libc::F_SETFD, libc::FD_CLOEXEC))?;
-                cvt(libc::fcntl(pipes[0], libc::F_SETFL, libc::O_NONBLOCK))?;
-                cvt(libc::fcntl(pipes[1], libc::F_SETFL, libc::O_NONBLOCK))?;
+                cvt(libc::ocall::fcntl_arg1(pipes[0], libc::F_SETFD, libc::FD_CLOEXEC))?;
+                cvt(libc::ocall::fcntl_arg1(pipes[1], libc::F_SETFD, libc::FD_CLOEXEC))?;
+                cvt(libc::ocall::fcntl_arg1(pipes[0], libc::F_SETFL, libc::O_NONBLOCK))?;
+                cvt(libc::ocall::fcntl_arg1(pipes[1], libc::F_SETFL, libc::O_NONBLOCK))?;
                 Ok((r, w))
     }
 }

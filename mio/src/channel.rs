@@ -1,6 +1,7 @@
 //! Thread safe communication channel implementing `Evented`
 
 #![allow(unused_imports, deprecated, missing_debug_implementations)]
+use std::prelude::v1::*;
 
 use {io, Ready, Poll, PollOpt, Registration, SetReadiness, Token};
 use event::Evented;

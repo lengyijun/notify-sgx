@@ -1,5 +1,6 @@
 #![allow(missing_docs)]
 
+use std::prelude::v1::*;
 mod timer;
 
 use super::{op, DebouncedEvent, RawEvent};
@@ -9,7 +10,7 @@ use self::timer::WatchTimer;
 use std::collections::HashMap;
 use std::path::PathBuf;
 use std::sync::mpsc;
-use std::sync::{Arc, Mutex};
+use std::sync::{Arc, SgxMutex as Mutex};
 use std::time::Duration;
 
 pub type OperationsBufferInner = HashMap<PathBuf, (Option<op::Op>, Option<PathBuf>, Option<u64>)>;

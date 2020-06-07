@@ -140,6 +140,8 @@
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct Token(pub usize);
 
+use std::prelude::v1::*;
+
 impl From<usize> for Token {
     fn from(val: usize) -> Token {
         Token(val)

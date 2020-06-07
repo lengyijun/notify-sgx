@@ -1,3 +1,5 @@
+
+use std::prelude::v1::*;
 use {sys, Token};
 use event_imp::{self as event, Ready, Event, Evented, PollOpt};
 use std::{fmt, io, ptr, usize};
@@ -7,11 +9,12 @@ use std::{mem, ops, isize};
 use std::os::unix::io::AsRawFd;
 #[cfg(all(unix, not(target_os = "fuchsia")))]
 use std::os::unix::io::RawFd;
-use std::process;
-use std::sync::{Arc, Mutex, Condvar};
+//use std::process;
+use std::sync::{Arc, SgxMutex as Mutex, SgxCondvar as Condvar};
 use std::sync::atomic::{AtomicUsize, AtomicPtr, AtomicBool};
 use std::sync::atomic::Ordering::{self, Acquire, Release, AcqRel, Relaxed, SeqCst};
 use std::time::{Duration, Instant};
+use libc;
 
 // Poll is backed by two readiness queues. The first is a system readiness queue
 // represented by `sys::Selector`. The system readiness queue handles events
@@ -2068,7 +2071,10 @@ impl Clone for RegistrationInner {
         // We abort because such a program is incredibly degenerate, and we
         // don't care to support it.
         if old_size & !MAX_REFCOUNT != 0 {
-            process::abort();
+            //process::abort();
+            unsafe{
+            libc::abort();
+            }
         }
 
         RegistrationInner {

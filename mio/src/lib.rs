@@ -109,13 +109,15 @@
 //! ```
 
 
+#![no_std]
+use std::prelude::v1::*;
+extern crate sgx_tstd as std;
+extern crate sgx_libc as libc;
+
 #[cfg(target_os = "fuchsia")]
 extern crate fuchsia_zircon as zircon;
 #[cfg(target_os = "fuchsia")]
 extern crate fuchsia_zircon_sys as zircon_sys;
-
-#[cfg(unix)]
-extern crate libc;
 
 #[cfg(windows)]
 extern crate miow;

@@ -23,6 +23,7 @@
 //! coordination in a thread-safe fashion. The limitation of an `AtomicLazyCell`
 //! is that after it is initialized, it can't be modified.
 
+use std::prelude::v1::*;
 use std::cell::UnsafeCell;
 use std::mem;
 use std::sync::atomic::{AtomicUsize, Ordering};

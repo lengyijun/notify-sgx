@@ -1,3 +1,4 @@
+use std::prelude::v1::*;
 use std::fs::File;
 use std::io::{Read, Write};
 use std::os::unix::io::{IntoRawFd, AsRawFd, FromRawFd, RawFd};
@@ -11,8 +12,8 @@ use sys::unix::cvt;
 
 pub fn set_cloexec(fd: libc::c_int) -> io::Result<()> {
     unsafe {
-        let flags = libc::fcntl(fd, libc::F_GETFD);
-        cvt(libc::fcntl(fd, libc::F_SETFD, flags | libc::FD_CLOEXEC)).map(|_| ())
+        let flags = libc::ocall::fcntl_arg0(fd, libc::F_GETFD);
+        cvt(libc::ocall::fcntl_arg1(fd, libc::F_SETFD, flags | libc::FD_CLOEXEC)).map(|_| ())
     }
 }
 

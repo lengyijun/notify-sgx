@@ -1,4 +1,5 @@
 #![allow(deprecated)]
+use std::prelude::v1::*;
 use std::os::unix::io::AsRawFd;
 use std::os::unix::io::RawFd;
 use std::sync::atomic::{AtomicUsize, Ordering, ATOMIC_USIZE_INIT};
@@ -35,7 +36,7 @@ impl Selector {
             // set the CLOEXEC flag.
             // dlsym!(fn epoll_create1(c_int) -> c_int);
 
-                    let fd = cvt(libc::epoll_create(1024))?;
+                    let fd = cvt(libc::ocall::epoll_create1(1024))?;
                     drop(set_cloexec(fd));
                     fd
 
@@ -59,7 +60,7 @@ impl Selector {
         // Wait for epoll events for at most timeout_ms milliseconds
         evts.clear();
         unsafe {
-            let cnt = cvt(libc::epoll_wait(self.epfd,
+            let cnt = cvt(libc::ocall::epoll_wait(self.epfd,
                                            evts.events.as_mut_ptr(),
                                            evts.events.capacity() as i32,
                                            timeout_ms))?;
@@ -85,7 +86,7 @@ impl Selector {
         };
 
         unsafe {
-            cvt(libc::epoll_ctl(self.epfd, libc::EPOLL_CTL_ADD, fd, &mut info))?;
+            cvt(libc::ocall::epoll_ctl(self.epfd, libc::EPOLL_CTL_ADD, fd, &mut info))?;
             Ok(())
         }
     }
@@ -98,7 +99,7 @@ impl Selector {
         };
 
         unsafe {
-            cvt(libc::epoll_ctl(self.epfd, libc::EPOLL_CTL_MOD, fd, &mut info))?;
+            cvt(libc::ocall::epoll_ctl(self.epfd, libc::EPOLL_CTL_MOD, fd, &mut info))?;
             Ok(())
         }
     }
@@ -114,7 +115,7 @@ impl Selector {
         };
 
         unsafe {
-            cvt(libc::epoll_ctl(self.epfd, libc::EPOLL_CTL_DEL, fd, &mut info))?;
+            cvt(libc::ocall::epoll_ctl(self.epfd, libc::EPOLL_CTL_DEL, fd, &mut info))?;
             Ok(())
         }
     }
@@ -159,7 +160,7 @@ impl AsRawFd for Selector {
 impl Drop for Selector {
     fn drop(&mut self) {
         unsafe {
-            let _ = libc::close(self.epfd);
+            let _ = libc::ocall::close(self.epfd);
         }
     }
 }

@@ -1,3 +1,5 @@
+
+use std::prelude::v1::*;
 pub use self::pipe::Awakener;
 
 /// Default awakener backed by a pipe
